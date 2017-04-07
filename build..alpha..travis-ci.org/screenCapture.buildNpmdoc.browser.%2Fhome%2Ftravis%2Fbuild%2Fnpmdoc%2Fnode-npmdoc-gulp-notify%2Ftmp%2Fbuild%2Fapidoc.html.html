@@ -1,0 +1,499 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/mikaelbr/gulp-notify">gulp-notify (v3.0.0)</a>
+</h1>
+<h4>gulp plugin to send messages based on Vinyl Files or Errors to Mac OS X, Linux or Windows using the node-notifier module. Fallbacks to Growl or simply logging</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-notify">module gulp-notify</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.logLevel">
+            function <span class="apidocSignatureSpan">gulp-notify.</span>logLevel
+            <span class="apidocSignatureSpan">(newLogLevel)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.logger">
+            function <span class="apidocSignatureSpan">gulp-notify.</span>logger
+            <span class="apidocSignatureSpan">(newLogger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.on">
+            function <span class="apidocSignatureSpan">gulp-notify.</span>on
+            <span class="apidocSignatureSpan">(event, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.onError">
+            function <span class="apidocSignatureSpan">gulp-notify.</span>onError
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.withReporter">
+            function <span class="apidocSignatureSpan">gulp-notify.</span>withReporter
+            <span class="apidocSignatureSpan">(reporter)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">gulp-notify.</span>extra_api</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-notify.extra_api">module gulp-notify.extra_api</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.extra_api.logError">
+            function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>logError
+            <span class="apidocSignatureSpan">(options, isError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.extra_api.logLevel">
+            function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>logLevel
+            <span class="apidocSignatureSpan">(newLogLevel)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.extra_api.logger">
+            function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>logger
+            <span class="apidocSignatureSpan">(newLogger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.extra_api.onError">
+            function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>onError
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-notify" id="apidoc.module.gulp-notify">module gulp-notify</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.logLevel" id="apidoc.element.gulp-notify.logLevel">
+        function <span class="apidocSignatureSpan">gulp-notify.</span>logLevel
+        <span class="apidocSignatureSpan">(newLogLevel)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">logLevel = function (newLogLevel) {
+  if (newLogLevel === void 0) return logLevel;
+  logLevel = newLogLevel;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.withReporter(Function)](#notifywithreporterfunction)
+  * [notify.onError()](#notifyonerror)
+  * [notify.<span class="apidocCodeKeywordSpan">logLevel</span>(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
+
+&lt;!-- toc stop --&gt;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.logger" id="apidoc.element.gulp-notify.logger">
+        function <span class="apidocSignatureSpan">gulp-notify.</span>logger
+        <span class="apidocSignatureSpan">(newLogger)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">logger = function (newLogger) {
+  if (!newLogger) return fnLog;
+  fnLog = newLogger;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.on" id="apidoc.element.gulp-notify.on">
+        function <span class="apidocSignatureSpan">gulp-notify.</span>on
+        <span class="apidocSignatureSpan">(event, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">on = function (event, fn) {
+  if (!notifier) return;
+  return notifier.on(event, function (notifyObject, options) {
+    return fn(options);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+on each file.
+
+#### options.emitError
+Type: `Boolean`
+Default: `false`
+
+If the returned stream should emit an error or not.
+If `emitError` is true, you have to handle `.<span class="apidocCodeKeywordSpan">on</span>('error')`
+manually in case the notifier (gulp-notify) fails. If
+the default `false` is set, the error will not be emitted
+but simply printed to the console.
+
+This means you can run the notifier on a CI system without
+opting it out but simply letting it fail gracefully.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.onError" id="apidoc.element.gulp-notify.onError">
+        function <span class="apidocSignatureSpan">gulp-notify.</span>onError
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onError = function (options, callback) {
+  var reporter;
+  options = options || {};
+  var templateOptions = options.templateOptions || {};
+  var callback = callback || function (err) {
+    err &amp;&amp; logError({
+      title: "Error running notifier",
+      message: "Could not send message: " + err.message
+    }, true);
+  };
+
+  if (options.notifier) {
+    reporter = options.notifier;
+  } else {
+    if (options.host || options.appName || options.port) {
+      notifier = new notifier.Notification({
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
+      });
+    }
+    reporter = notifier.notify.bind(notifier);
+  }
+  return function (error) {
+    var self = this;
+    report(reporter, error, options, templateOptions, function () {
+      callback.apply(self, arguments);
+      self.emit &amp;&amp; self.emit('end');
+    });
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    * [options.onLast](#optionsonlast)
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.withReporter(Function)](#notifywithreporterfunction)
+  * [notify.<span class="apidocCodeKeywordSpan">onError</span>()](#notifyonerror)
+  * [notify.logLevel(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
+
+&lt;!-- toc stop --&gt;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.withReporter" id="apidoc.element.gulp-notify.withReporter">
+        function <span class="apidocSignatureSpan">gulp-notify.</span>withReporter
+        <span class="apidocSignatureSpan">(reporter)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">withReporter = function (reporter) {
+  if (!reporter) throw new gutil.PluginError("gulp-notify", "No custom reporter defined.");
+
+  var inner = function (options) {
+    options = setOptions(options, reporter);
+    return notify(options);
+  };
+
+  inner.onError = function (options) {
+    options = setOptions(options, reporter);
+    return api.onError(options);
+  };
+
+  inner.logLevel = api.logLevel;
+  inner.logger = api.logger;
+
+  return inner;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  * [notify(options)](#notifyoptions)
+    * [options.onLast](#optionsonlast)
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.<span class="apidocCodeKeywordSpan">withReporter</span>(Function)](#notifywithreporterfunction)
+  * [notify.onError()](#notifyonerror)
+  * [notify.logLevel(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-notify.extra_api" id="apidoc.module.gulp-notify.extra_api">module gulp-notify.extra_api</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.extra_api.logError" id="apidoc.element.gulp-notify.extra_api.logError">
+        function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>logError
+        <span class="apidocSignatureSpan">(options, isError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">logError = function (options, isError) {
+  if (!logLevel) return;
+  if (logLevel === 1 &amp;&amp; !isError) return;
+
+  color = isError ? "red" : "green";
+  if (!gutil.colors[color]) return;
+  fnLog(gutil.colors.cyan('gulp-notify') + ':',
+           '[' + gutil.colors.blue(options.title) + ']',
+            gutil.colors[color].call(gutil.colors, options.message)
+           );
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// Try/catch the only way to go to ensure catching all errors? Domains?
+try {
+  var options = constructOptions(options, message, templateOptions);
+  if (!options) {
+    return callback();
+  }
+  api.<span class="apidocCodeKeywordSpan">logError</span>(options, (message instanceof Error));
+  reporter(options, function (err) {
+    if (err) return callback(new gutil.PluginError("gulp-notify", err));
+    return callback();
+  });
+} catch (err) {
+  return callback(new gutil.PluginError("gulp-notify", err));
+}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.extra_api.logLevel" id="apidoc.element.gulp-notify.extra_api.logLevel">
+        function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>logLevel
+        <span class="apidocSignatureSpan">(newLogLevel)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">logLevel = function (newLogLevel) {
+  if (newLogLevel === void 0) return logLevel;
+  logLevel = newLogLevel;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.withReporter(Function)](#notifywithreporterfunction)
+  * [notify.onError()](#notifyonerror)
+  * [notify.<span class="apidocCodeKeywordSpan">logLevel</span>(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
+
+&lt;!-- toc stop --&gt;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.extra_api.logger" id="apidoc.element.gulp-notify.extra_api.logger">
+        function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>logger
+        <span class="apidocSignatureSpan">(newLogger)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">logger = function (newLogger) {
+  if (!newLogger) return fnLog;
+  fnLog = newLogger;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.extra_api.onError" id="apidoc.element.gulp-notify.extra_api.onError">
+        function <span class="apidocSignatureSpan">gulp-notify.extra_api.</span>onError
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onError = function (options, callback) {
+  var reporter;
+  options = options || {};
+  var templateOptions = options.templateOptions || {};
+  var callback = callback || function (err) {
+    err &amp;&amp; logError({
+      title: "Error running notifier",
+      message: "Could not send message: " + err.message
+    }, true);
+  };
+
+  if (options.notifier) {
+    reporter = options.notifier;
+  } else {
+    if (options.host || options.appName || options.port) {
+      notifier = new notifier.Notification({
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
+      });
+    }
+    reporter = notifier.notify.bind(notifier);
+  }
+  return function (error) {
+    var self = this;
+    report(reporter, error, options, templateOptions, function () {
+      callback.apply(self, arguments);
+      self.emit &amp;&amp; self.emit('end');
+    });
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    * [options.onLast](#optionsonlast)
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.withReporter(Function)](#notifywithreporterfunction)
+  * [notify.<span class="apidocCodeKeywordSpan">onError</span>()](#notifyonerror)
+  * [notify.logLevel(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
+
+&lt;!-- toc stop --&gt;
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
