@@ -61,7 +61,7 @@
 <tspan x="10" y="938">  ├─┬ node.extend@1.1.6 </tspan>
 <tspan x="10" y="954">  │ └── is@3.2.1 </tspan>
 <tspan x="10" y="970">  └─┬ through2@2.0.3 </tspan>
-<tspan x="10" y="986">    ├─┬ readable-stream@2.2.8 </tspan>
+<tspan x="10" y="986">    ├─┬ readable-stream@2.2.9 </tspan>
 <tspan x="10" y="1002">    │ ├── buffer-shims@1.0.0 </tspan>
 <tspan x="10" y="1018">    │ ├── core-util-is@1.0.2 </tspan>
 <tspan x="10" y="1034">    │ ├── inherits@2.0.3 </tspan>

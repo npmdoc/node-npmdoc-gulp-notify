@@ -63,6 +63,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.gulp-notify">
+            function <span class="apidocSignatureSpan"></span>gulp-notify
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.logLevel">
             function <span class="apidocSignatureSpan">gulp-notify.</span>logLevel
             <span class="apidocSignatureSpan">(newLogLevel)</span>
@@ -75,6 +84,15 @@
             <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.logger">
             function <span class="apidocSignatureSpan">gulp-notify.</span>logger
             <span class="apidocSignatureSpan">(newLogger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.notify">
+            function <span class="apidocSignatureSpan">gulp-notify.</span>notify
+            <span class="apidocSignatureSpan">(options)</span>
             </a>
 
         </li>
@@ -154,10 +172,169 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-notify.notify">module gulp-notify.notify</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.notify.notify">
+            function <span class="apidocSignatureSpan">gulp-notify.</span>notify
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.notify.logLevel">
+            function <span class="apidocSignatureSpan">gulp-notify.notify.</span>logLevel
+            <span class="apidocSignatureSpan">(newLogLevel)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.notify.logger">
+            function <span class="apidocSignatureSpan">gulp-notify.notify.</span>logger
+            <span class="apidocSignatureSpan">(newLogger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.notify.on">
+            function <span class="apidocSignatureSpan">gulp-notify.notify.</span>on
+            <span class="apidocSignatureSpan">(event, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.notify.onError">
+            function <span class="apidocSignatureSpan">gulp-notify.notify.</span>onError
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-notify.notify.withReporter">
+            function <span class="apidocSignatureSpan">gulp-notify.notify.</span>withReporter
+            <span class="apidocSignatureSpan">(reporter)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.gulp-notify" id="apidoc.module.gulp-notify">module gulp-notify</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.gulp-notify" id="apidoc.element.gulp-notify.gulp-notify">
+        function <span class="apidocSignatureSpan"></span>gulp-notify
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gulp-notify = function (options) {
+  var reporter;
+  var lastFile = null;
+
+  options = options || {};
+  var templateOptions = options.templateOptions || {};
+
+  if (options.notifier) {
+    reporter = options.notifier;
+  } else {
+    if (options.host || options.appName || options.port) {
+      notifier = new notifier.Notification({
+        host: options.host || &#x27;localhost&#x27;,
+        appName: options.appName || &#x27;gulp-notify&#x27;,
+        port: options.port || &#x27;23053&#x27;
+      });
+    }
+    reporter = notifier.notify.bind(notifier);
+  }
+
+  function notify (file, enc, callback) {
+    var stream = this;
+
+    report(reporter, file, options, templateOptions, function (err) {
+      logError(err, stream);
+
+      if (options.emitError) {
+        stream.push(file);
+        return callback();
+      }
+    });
+
+    if (!options.emitError) {
+      stream.push(file);
+      return callback();
+    }
+  }
+
+  if (!options.onLast) {
+    return through.obj(notify);
+  }
+
+  // Only send notification on the last file.
+  return through.obj(function (file, enc, callback) {
+    lastFile = file;
+    this.push(file);
+    callback();
+  }, function (callback) {
+    var stream = this;
+
+    if (!lastFile) {
+      return callback();
+    }
+
+    report(reporter, lastFile, options, templateOptions, function (err) {
+      logError(err, stream);
+      if (options.emitError) {
+        return callback();
+      }
+    });
+
+    lastFile = null; // reset
+    if (!options.emitError) {
+      return callback();
+    }
+  });
+
+  function logError (err, stream) {
+    if (!err) return;
+
+    var isGrowl = notifier &#x26;&#x26; notifier instanceof notifier.Growl;
+    var isEcon = err.message.indexOf(&#x27;ECONNREFUSED&#x27;) !== -1;
+    var dropMessage = isGrowl &#x26;&#x26; isEcon;
+
+    if (dropMessage) {
+      return extra.logError({
+        title: &#x27;Info&#x27;,
+        message: &#x27;No notification system installed.&#x27;
+      });
+    }
+
+    if (options.emitError) return stream.emit(&#x27;error&#x27;, err);
+
+    extra.logError({
+      title: &#x27;Error in notifier&#x27;,
+      message: err
+    }, true);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
@@ -201,6 +378,107 @@
     <li>description and source-code<pre class="apidocCodePre">logger = function (newLogger) {
   if (!newLogger) return fnLog;
   fnLog = newLogger;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.notify" id="apidoc.element.gulp-notify.notify">
+        function <span class="apidocSignatureSpan">gulp-notify.</span>notify
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">notify = function (options) {
+  var reporter;
+  var lastFile = null;
+
+  options = options || {};
+  var templateOptions = options.templateOptions || {};
+
+  if (options.notifier) {
+    reporter = options.notifier;
+  } else {
+    if (options.host || options.appName || options.port) {
+      notifier = new notifier.Notification({
+        host: options.host || &#x27;localhost&#x27;,
+        appName: options.appName || &#x27;gulp-notify&#x27;,
+        port: options.port || &#x27;23053&#x27;
+      });
+    }
+    reporter = notifier.notify.bind(notifier);
+  }
+
+  function notify (file, enc, callback) {
+    var stream = this;
+
+    report(reporter, file, options, templateOptions, function (err) {
+      logError(err, stream);
+
+      if (options.emitError) {
+        stream.push(file);
+        return callback();
+      }
+    });
+
+    if (!options.emitError) {
+      stream.push(file);
+      return callback();
+    }
+  }
+
+  if (!options.onLast) {
+    return through.obj(notify);
+  }
+
+  // Only send notification on the last file.
+  return through.obj(function (file, enc, callback) {
+    lastFile = file;
+    this.push(file);
+    callback();
+  }, function (callback) {
+    var stream = this;
+
+    if (!lastFile) {
+      return callback();
+    }
+
+    report(reporter, lastFile, options, templateOptions, function (err) {
+      logError(err, stream);
+      if (options.emitError) {
+        return callback();
+      }
+    });
+
+    lastFile = null; // reset
+    if (!options.emitError) {
+      return callback();
+    }
+  });
+
+  function logError (err, stream) {
+    if (!err) return;
+
+    var isGrowl = notifier &#x26;&#x26; notifier instanceof notifier.Growl;
+    var isEcon = err.message.indexOf(&#x27;ECONNREFUSED&#x27;) !== -1;
+    var dropMessage = isGrowl &#x26;&#x26; isEcon;
+
+    if (dropMessage) {
+      return extra.logError({
+        title: &#x27;Info&#x27;,
+        message: &#x27;No notification system installed.&#x27;
+      });
+    }
+
+    if (options.emitError) return stream.emit(&#x27;error&#x27;, err);
+
+    extra.logError({
+      title: &#x27;Error in notifier&#x27;,
+      message: err
+    }, true);
+  }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -491,6 +769,296 @@ try {
 * [License](#license)
 
 &#x3c;!-- toc stop --&#x3e;
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-notify.notify" id="apidoc.module.gulp-notify.notify">module gulp-notify.notify</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.notify.notify" id="apidoc.element.gulp-notify.notify.notify">
+        function <span class="apidocSignatureSpan">gulp-notify.</span>notify
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">notify = function (options) {
+  var reporter;
+  var lastFile = null;
+
+  options = options || {};
+  var templateOptions = options.templateOptions || {};
+
+  if (options.notifier) {
+    reporter = options.notifier;
+  } else {
+    if (options.host || options.appName || options.port) {
+      notifier = new notifier.Notification({
+        host: options.host || &#x27;localhost&#x27;,
+        appName: options.appName || &#x27;gulp-notify&#x27;,
+        port: options.port || &#x27;23053&#x27;
+      });
+    }
+    reporter = notifier.notify.bind(notifier);
+  }
+
+  function notify (file, enc, callback) {
+    var stream = this;
+
+    report(reporter, file, options, templateOptions, function (err) {
+      logError(err, stream);
+
+      if (options.emitError) {
+        stream.push(file);
+        return callback();
+      }
+    });
+
+    if (!options.emitError) {
+      stream.push(file);
+      return callback();
+    }
+  }
+
+  if (!options.onLast) {
+    return through.obj(notify);
+  }
+
+  // Only send notification on the last file.
+  return through.obj(function (file, enc, callback) {
+    lastFile = file;
+    this.push(file);
+    callback();
+  }, function (callback) {
+    var stream = this;
+
+    if (!lastFile) {
+      return callback();
+    }
+
+    report(reporter, lastFile, options, templateOptions, function (err) {
+      logError(err, stream);
+      if (options.emitError) {
+        return callback();
+      }
+    });
+
+    lastFile = null; // reset
+    if (!options.emitError) {
+      return callback();
+    }
+  });
+
+  function logError (err, stream) {
+    if (!err) return;
+
+    var isGrowl = notifier &#x26;&#x26; notifier instanceof notifier.Growl;
+    var isEcon = err.message.indexOf(&#x27;ECONNREFUSED&#x27;) !== -1;
+    var dropMessage = isGrowl &#x26;&#x26; isEcon;
+
+    if (dropMessage) {
+      return extra.logError({
+        title: &#x27;Info&#x27;,
+        message: &#x27;No notification system installed.&#x27;
+      });
+    }
+
+    if (options.emitError) return stream.emit(&#x27;error&#x27;, err);
+
+    extra.logError({
+      title: &#x27;Error in notifier&#x27;,
+      message: err
+    }, true);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.notify.logLevel" id="apidoc.element.gulp-notify.notify.logLevel">
+        function <span class="apidocSignatureSpan">gulp-notify.notify.</span>logLevel
+        <span class="apidocSignatureSpan">(newLogLevel)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">logLevel = function (newLogLevel) {
+  if (newLogLevel === void 0) return logLevel;
+  logLevel = newLogLevel;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.withReporter(Function)](#notifywithreporterfunction)
+  * [notify.onError()](#notifyonerror)
+  * [notify.<span class="apidocCodeKeywordSpan">logLevel</span>(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
+
+&#x3c;!-- toc stop --&#x3e;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.notify.logger" id="apidoc.element.gulp-notify.notify.logger">
+        function <span class="apidocSignatureSpan">gulp-notify.notify.</span>logger
+        <span class="apidocSignatureSpan">(newLogger)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">logger = function (newLogger) {
+  if (!newLogger) return fnLog;
+  fnLog = newLogger;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.notify.on" id="apidoc.element.gulp-notify.notify.on">
+        function <span class="apidocSignatureSpan">gulp-notify.notify.</span>on
+        <span class="apidocSignatureSpan">(event, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">on = function (event, fn) {
+  if (!notifier) return;
+  return notifier.on(event, function (notifyObject, options) {
+    return fn(options);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+on each file.
+
+#### options.emitError
+Type: `Boolean`
+Default: `false`
+
+If the returned stream should emit an error or not.
+If `emitError` is true, you have to handle `.<span class="apidocCodeKeywordSpan">on</span>(&#x27;error&#x27;)`
+manually in case the notifier (gulp-notify) fails. If
+the default `false` is set, the error will not be emitted
+but simply printed to the console.
+
+This means you can run the notifier on a CI system without
+opting it out but simply letting it fail gracefully.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.notify.onError" id="apidoc.element.gulp-notify.notify.onError">
+        function <span class="apidocSignatureSpan">gulp-notify.notify.</span>onError
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onError = function (options, callback) {
+  var reporter;
+  options = options || {};
+  var templateOptions = options.templateOptions || {};
+  var callback = callback || function (err) {
+    err &#x26;&#x26; logError({
+      title: &#x22;Error running notifier&#x22;,
+      message: &#x22;Could not send message: &#x22; + err.message
+    }, true);
+  };
+
+  if (options.notifier) {
+    reporter = options.notifier;
+  } else {
+    if (options.host || options.appName || options.port) {
+      notifier = new notifier.Notification({
+        host: options.host || &#x27;localhost&#x27;,
+        appName: options.appName || &#x27;gulp-notify&#x27;,
+        port: options.port || &#x27;23053&#x27;
+      });
+    }
+    reporter = notifier.notify.bind(notifier);
+  }
+  return function (error) {
+    var self = this;
+    report(reporter, error, options, templateOptions, function () {
+      callback.apply(self, arguments);
+      self.emit &#x26;&#x26; self.emit(&#x27;end&#x27;);
+    });
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    * [options.onLast](#optionsonlast)
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.withReporter(Function)](#notifywithreporterfunction)
+  * [notify.<span class="apidocCodeKeywordSpan">onError</span>()](#notifyonerror)
+  * [notify.logLevel(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
+
+&#x3c;!-- toc stop --&#x3e;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-notify.notify.withReporter" id="apidoc.element.gulp-notify.notify.withReporter">
+        function <span class="apidocSignatureSpan">gulp-notify.notify.</span>withReporter
+        <span class="apidocSignatureSpan">(reporter)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">withReporter = function (reporter) {
+  if (!reporter) throw new gutil.PluginError(&#x22;gulp-notify&#x22;, &#x22;No custom reporter defined.&#x22;);
+
+  var inner = function (options) {
+    options = setOptions(options, reporter);
+    return notify(options);
+  };
+
+  inner.onError = function (options) {
+    options = setOptions(options, reporter);
+    return api.onError(options);
+  };
+
+  inner.logLevel = api.logLevel;
+  inner.logger = api.logger;
+
+  return inner;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  * [notify(options)](#notifyoptions)
+    * [options.onLast](#optionsonlast)
+    * [options.emitError](#optionsemiterror)
+    * [options.message](#optionsmessage)
+    * [options.title](#optionstitle)
+    * [options.templateOptions](#optionstemplateoptions)
+    * [options.notifier](#optionsnotifier)
+  * [notify.<span class="apidocCodeKeywordSpan">withReporter</span>(Function)](#notifywithreporterfunction)
+  * [notify.onError()](#notifyonerror)
+  * [notify.logLevel(level)](#notifyloglevellevel)
+* [Disable `gulp-notify`](#disable-gulp-notify)
+* [Examples](#examples)
+  * [As jshint reporter](#as-jshint-reporter)
+* [License](#license)
 ...</pre></li>
     </ul>
 

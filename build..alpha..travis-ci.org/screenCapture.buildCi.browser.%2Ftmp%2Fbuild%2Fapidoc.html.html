@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/mikaelbr/gulp-notify"
-
-    >gulp-notify (v3.0.0)</a>
+    <a href="https://github.com/mikaelbr/gulp-notify">gulp-notify (v3.0.0)</a>
 </h1>
 <h4>gulp plugin to send messages based on Vinyl Files or Errors to Mac OS X, Linux or Windows using the node-notifier module. Fallbacks to Growl or simply logging</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-notify">module gulp-notify</a><ol>
 
@@ -255,9 +248,9 @@
   } else {
     if (options.host || options.appName || options.port) {
       notifier = new notifier.Notification({
-        host: options.host || &#x27;localhost&#x27;,
-        appName: options.appName || &#x27;gulp-notify&#x27;,
-        port: options.port || &#x27;23053&#x27;
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
       });
     }
     reporter = notifier.notify.bind(notifier);
@@ -313,21 +306,21 @@
   function logError (err, stream) {
     if (!err) return;
 
-    var isGrowl = notifier &#x26;&#x26; notifier instanceof notifier.Growl;
-    var isEcon = err.message.indexOf(&#x27;ECONNREFUSED&#x27;) !== -1;
-    var dropMessage = isGrowl &#x26;&#x26; isEcon;
+    var isGrowl = notifier &amp;&amp; notifier instanceof notifier.Growl;
+    var isEcon = err.message.indexOf('ECONNREFUSED') !== -1;
+    var dropMessage = isGrowl &amp;&amp; isEcon;
 
     if (dropMessage) {
       return extra.logError({
-        title: &#x27;Info&#x27;,
-        message: &#x27;No notification system installed.&#x27;
+        title: 'Info',
+        message: 'No notification system installed.'
       });
     }
 
-    if (options.emitError) return stream.emit(&#x27;error&#x27;, err);
+    if (options.emitError) return stream.emit('error', err);
 
     extra.logError({
-      title: &#x27;Error in notifier&#x27;,
+      title: 'Error in notifier',
       message: err
     }, true);
   }
@@ -362,7 +355,7 @@
   * [As jshint reporter](#as-jshint-reporter)
 * [License](#license)
 
-&#x3c;!-- toc stop --&#x3e;
+&lt;!-- toc stop --&gt;
 ...</pre></li>
     </ul>
 
@@ -403,9 +396,9 @@
   } else {
     if (options.host || options.appName || options.port) {
       notifier = new notifier.Notification({
-        host: options.host || &#x27;localhost&#x27;,
-        appName: options.appName || &#x27;gulp-notify&#x27;,
-        port: options.port || &#x27;23053&#x27;
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
       });
     }
     reporter = notifier.notify.bind(notifier);
@@ -461,21 +454,21 @@
   function logError (err, stream) {
     if (!err) return;
 
-    var isGrowl = notifier &#x26;&#x26; notifier instanceof notifier.Growl;
-    var isEcon = err.message.indexOf(&#x27;ECONNREFUSED&#x27;) !== -1;
-    var dropMessage = isGrowl &#x26;&#x26; isEcon;
+    var isGrowl = notifier &amp;&amp; notifier instanceof notifier.Growl;
+    var isEcon = err.message.indexOf('ECONNREFUSED') !== -1;
+    var dropMessage = isGrowl &amp;&amp; isEcon;
 
     if (dropMessage) {
       return extra.logError({
-        title: &#x27;Info&#x27;,
-        message: &#x27;No notification system installed.&#x27;
+        title: 'Info',
+        message: 'No notification system installed.'
       });
     }
 
-    if (options.emitError) return stream.emit(&#x27;error&#x27;, err);
+    if (options.emitError) return stream.emit('error', err);
 
     extra.logError({
-      title: &#x27;Error in notifier&#x27;,
+      title: 'Error in notifier',
       message: err
     }, true);
   }
@@ -506,7 +499,7 @@ Type: `Boolean`
 Default: `false`
 
 If the returned stream should emit an error or not.
-If `emitError` is true, you have to handle `.<span class="apidocCodeKeywordSpan">on</span>(&#x27;error&#x27;)`
+If `emitError` is true, you have to handle `.<span class="apidocCodeKeywordSpan">on</span>('error')`
 manually in case the notifier (gulp-notify) fails. If
 the default `false` is set, the error will not be emitted
 but simply printed to the console.
@@ -530,9 +523,9 @@ opting it out but simply letting it fail gracefully.
   options = options || {};
   var templateOptions = options.templateOptions || {};
   var callback = callback || function (err) {
-    err &#x26;&#x26; logError({
-      title: &#x22;Error running notifier&#x22;,
-      message: &#x22;Could not send message: &#x22; + err.message
+    err &amp;&amp; logError({
+      title: "Error running notifier",
+      message: "Could not send message: " + err.message
     }, true);
   };
 
@@ -541,9 +534,9 @@ opting it out but simply letting it fail gracefully.
   } else {
     if (options.host || options.appName || options.port) {
       notifier = new notifier.Notification({
-        host: options.host || &#x27;localhost&#x27;,
-        appName: options.appName || &#x27;gulp-notify&#x27;,
-        port: options.port || &#x27;23053&#x27;
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
       });
     }
     reporter = notifier.notify.bind(notifier);
@@ -552,7 +545,7 @@ opting it out but simply letting it fail gracefully.
     var self = this;
     report(reporter, error, options, templateOptions, function () {
       callback.apply(self, arguments);
-      self.emit &#x26;&#x26; self.emit(&#x27;end&#x27;);
+      self.emit &amp;&amp; self.emit('end');
     });
   };
 }</pre></li>
@@ -571,7 +564,7 @@ opting it out but simply letting it fail gracefully.
   * [As jshint reporter](#as-jshint-reporter)
 * [License](#license)
 
-&#x3c;!-- toc stop --&#x3e;
+&lt;!-- toc stop --&gt;
 ...</pre></li>
     </ul>
 
@@ -585,7 +578,7 @@ opting it out but simply letting it fail gracefully.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withReporter = function (reporter) {
-  if (!reporter) throw new gutil.PluginError(&#x22;gulp-notify&#x22;, &#x22;No custom reporter defined.&#x22;);
+  if (!reporter) throw new gutil.PluginError("gulp-notify", "No custom reporter defined.");
 
   var inner = function (options) {
     options = setOptions(options, reporter);
@@ -638,12 +631,12 @@ opting it out but simply letting it fail gracefully.
     <ul>
     <li>description and source-code<pre class="apidocCodePre">logError = function (options, isError) {
   if (!logLevel) return;
-  if (logLevel === 1 &#x26;&#x26; !isError) return;
+  if (logLevel === 1 &amp;&amp; !isError) return;
 
-  color = isError ? &#x22;red&#x22; : &#x22;green&#x22;;
+  color = isError ? "red" : "green";
   if (!gutil.colors[color]) return;
-  fnLog(gutil.colors.cyan(&#x27;gulp-notify&#x27;) + &#x27;:&#x27;,
-           &#x27;[&#x27; + gutil.colors.blue(options.title) + &#x27;]&#x27;,
+  fnLog(gutil.colors.cyan('gulp-notify') + ':',
+           '[' + gutil.colors.blue(options.title) + ']',
             gutil.colors[color].call(gutil.colors, options.message)
            );
 }</pre></li>
@@ -657,11 +650,11 @@ try {
   }
   api.<span class="apidocCodeKeywordSpan">logError</span>(options, (message instanceof Error));
   reporter(options, function (err) {
-    if (err) return callback(new gutil.PluginError(&#x22;gulp-notify&#x22;, err));
+    if (err) return callback(new gutil.PluginError("gulp-notify", err));
     return callback();
   });
 } catch (err) {
-  return callback(new gutil.PluginError(&#x22;gulp-notify&#x22;, err));
+  return callback(new gutil.PluginError("gulp-notify", err));
 }
 ...</pre></li>
     </ul>
@@ -693,7 +686,7 @@ try {
   * [As jshint reporter](#as-jshint-reporter)
 * [License](#license)
 
-&#x3c;!-- toc stop --&#x3e;
+&lt;!-- toc stop --&gt;
 ...</pre></li>
     </ul>
 
@@ -727,9 +720,9 @@ try {
   options = options || {};
   var templateOptions = options.templateOptions || {};
   var callback = callback || function (err) {
-    err &#x26;&#x26; logError({
-      title: &#x22;Error running notifier&#x22;,
-      message: &#x22;Could not send message: &#x22; + err.message
+    err &amp;&amp; logError({
+      title: "Error running notifier",
+      message: "Could not send message: " + err.message
     }, true);
   };
 
@@ -738,9 +731,9 @@ try {
   } else {
     if (options.host || options.appName || options.port) {
       notifier = new notifier.Notification({
-        host: options.host || &#x27;localhost&#x27;,
-        appName: options.appName || &#x27;gulp-notify&#x27;,
-        port: options.port || &#x27;23053&#x27;
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
       });
     }
     reporter = notifier.notify.bind(notifier);
@@ -749,7 +742,7 @@ try {
     var self = this;
     report(reporter, error, options, templateOptions, function () {
       callback.apply(self, arguments);
-      self.emit &#x26;&#x26; self.emit(&#x27;end&#x27;);
+      self.emit &amp;&amp; self.emit('end');
     });
   };
 }</pre></li>
@@ -768,7 +761,7 @@ try {
   * [As jshint reporter](#as-jshint-reporter)
 * [License](#license)
 
-&#x3c;!-- toc stop --&#x3e;
+&lt;!-- toc stop --&gt;
 ...</pre></li>
     </ul>
 
@@ -798,9 +791,9 @@ try {
   } else {
     if (options.host || options.appName || options.port) {
       notifier = new notifier.Notification({
-        host: options.host || &#x27;localhost&#x27;,
-        appName: options.appName || &#x27;gulp-notify&#x27;,
-        port: options.port || &#x27;23053&#x27;
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
       });
     }
     reporter = notifier.notify.bind(notifier);
@@ -856,21 +849,21 @@ try {
   function logError (err, stream) {
     if (!err) return;
 
-    var isGrowl = notifier &#x26;&#x26; notifier instanceof notifier.Growl;
-    var isEcon = err.message.indexOf(&#x27;ECONNREFUSED&#x27;) !== -1;
-    var dropMessage = isGrowl &#x26;&#x26; isEcon;
+    var isGrowl = notifier &amp;&amp; notifier instanceof notifier.Growl;
+    var isEcon = err.message.indexOf('ECONNREFUSED') !== -1;
+    var dropMessage = isGrowl &amp;&amp; isEcon;
 
     if (dropMessage) {
       return extra.logError({
-        title: &#x27;Info&#x27;,
-        message: &#x27;No notification system installed.&#x27;
+        title: 'Info',
+        message: 'No notification system installed.'
       });
     }
 
-    if (options.emitError) return stream.emit(&#x27;error&#x27;, err);
+    if (options.emitError) return stream.emit('error', err);
 
     extra.logError({
-      title: &#x27;Error in notifier&#x27;,
+      title: 'Error in notifier',
       message: err
     }, true);
   }
@@ -905,7 +898,7 @@ try {
   * [As jshint reporter](#as-jshint-reporter)
 * [License](#license)
 
-&#x3c;!-- toc stop --&#x3e;
+&lt;!-- toc stop --&gt;
 ...</pre></li>
     </ul>
 
@@ -948,7 +941,7 @@ Type: `Boolean`
 Default: `false`
 
 If the returned stream should emit an error or not.
-If `emitError` is true, you have to handle `.<span class="apidocCodeKeywordSpan">on</span>(&#x27;error&#x27;)`
+If `emitError` is true, you have to handle `.<span class="apidocCodeKeywordSpan">on</span>('error')`
 manually in case the notifier (gulp-notify) fails. If
 the default `false` is set, the error will not be emitted
 but simply printed to the console.
@@ -972,9 +965,9 @@ opting it out but simply letting it fail gracefully.
   options = options || {};
   var templateOptions = options.templateOptions || {};
   var callback = callback || function (err) {
-    err &#x26;&#x26; logError({
-      title: &#x22;Error running notifier&#x22;,
-      message: &#x22;Could not send message: &#x22; + err.message
+    err &amp;&amp; logError({
+      title: "Error running notifier",
+      message: "Could not send message: " + err.message
     }, true);
   };
 
@@ -983,9 +976,9 @@ opting it out but simply letting it fail gracefully.
   } else {
     if (options.host || options.appName || options.port) {
       notifier = new notifier.Notification({
-        host: options.host || &#x27;localhost&#x27;,
-        appName: options.appName || &#x27;gulp-notify&#x27;,
-        port: options.port || &#x27;23053&#x27;
+        host: options.host || 'localhost',
+        appName: options.appName || 'gulp-notify',
+        port: options.port || '23053'
       });
     }
     reporter = notifier.notify.bind(notifier);
@@ -994,7 +987,7 @@ opting it out but simply letting it fail gracefully.
     var self = this;
     report(reporter, error, options, templateOptions, function () {
       callback.apply(self, arguments);
-      self.emit &#x26;&#x26; self.emit(&#x27;end&#x27;);
+      self.emit &amp;&amp; self.emit('end');
     });
   };
 }</pre></li>
@@ -1013,7 +1006,7 @@ opting it out but simply letting it fail gracefully.
   * [As jshint reporter](#as-jshint-reporter)
 * [License](#license)
 
-&#x3c;!-- toc stop --&#x3e;
+&lt;!-- toc stop --&gt;
 ...</pre></li>
     </ul>
 
@@ -1027,7 +1020,7 @@ opting it out but simply letting it fail gracefully.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withReporter = function (reporter) {
-  if (!reporter) throw new gutil.PluginError(&#x22;gulp-notify&#x22;, &#x22;No custom reporter defined.&#x22;);
+  if (!reporter) throw new gutil.PluginError("gulp-notify", "No custom reporter defined.");
 
   var inner = function (options) {
     options = setOptions(options, reporter);
@@ -1071,3 +1064,4 @@ opting it out but simply letting it fail gracefully.
     ]
 </div>
 </div>
+</body></html>
